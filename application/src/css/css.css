@@ -1,0 +1,76 @@
+/* CSS global ! possible CSS sur certaines pages */
+
+@namespace s "library://ns.adobe.com/flex/spark"; 
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+@media (os-platform: "IOS")
+{
+	s|ActionBar 
+	{ 
+		defaultButtonAppearance: beveled;
+	}
+}
+
+/* style action bare */
+s|ActionBar
+{
+	chromeColor: #0E0275;
+	titleAlign: center;
+	font-size: 30;
+}
+
+/* style titre action bare */
+s|ActionBar #titleDisplay
+{
+	color: white;
+	fontSize: 30;
+	fontFamily: "Comic Sans MS";
+}
+
+s|View
+{
+	backgroundColor: #531b37;
+}
+
+s|TabbedViewNavigator #tabBar
+{
+	chromeColor: #000000;
+	color: white;
+	fontSize: 20;
+	fontWeight: blod;
+	fontFamily: "Comic Sans MS";
+	iconPlacement: top;
+	interactionMode: mouse;
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
+}
+
+/*
+s|IconItemRenderer
+{
+	alternatingItemColors:#565556;
+	color:#B5B6B5;
+	paddingLeft:0;
+	verticalAlign:top;
+	horizontalGap:15;
+	selectionColor:#333333;
+	downColor:#333333;
+}
+*/
+
+s|Label
+{
+	fontFamily: "Comic Sans MS";
+	fontWeight: normal;
+	verticalAlign: top;
+}
+
+s|List
+{
+	content-background-alpha: 0;
+}
+
+s|Label
+{
+	color: #FFFFFF;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Dear Michael">
+	
+	<fx:Script>
+		<![CDATA[
+			protected function retour(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+	</fx:Declarations>
+	<s:navigationContent>
+		<s:Button label="Préc." click="retour(event)"/>
+	</s:navigationContent>
+	<s:layout>
+		<s:VerticalLayout paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15"
+						  horizontalAlign="center" />
+	</s:layout>
+	<s:Image height="100%" width="100%" source="assets/images/michael.jpg"/>
+	
+	
+	
+</s:View>

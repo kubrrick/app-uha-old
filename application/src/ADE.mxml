@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TabbedViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+								  xmlns:s="library://ns.adobe.com/flex/spark" applicationDPI="320"
+								  splashScreenImage="@Embed('assets/splash/splash.png')"
+								  splashScreenMinimumDisplayTime="3000"
+								  initialize="init()"
+								  height="100%" 
+								  width="100%"
+								  >
+	
+	 <fx:Style source="css/css.css"/>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			protected function init():void {
+				
+				// initialisation afin de copier la base de donnée dans le repertoire lecture ecriture de l'application
+				var dbFile:File = File.applicationDirectory.resolvePath("database/ade.sqlite");
+				var dbRWFile:File = File.applicationStorageDirectory.resolvePath("ade.sqlite");
+				
+				//test afin de ne pas ecraser la base de donnée existante !
+				if (!dbRWFile.exists) 
+				{
+					dbFile.copyTo(dbRWFile, true);
+				}
+				
+			}
+		]]>
+	</fx:Script>
+	
+	<s:ViewNavigator label="Accueil" width="100%" height="100%" firstView="views.AccueilView">
+		<s:icon>
+			<s:MultiDPIBitmapSource source160dpi="@Embed(source='/assets/icons/24x24/home.png')"
+									source240dpi="@Embed(source='/assets/icons/32x32/home.png')"
+									source320dpi="@Embed(source='/assets/icons/48x48/home.png')" />
+		</s:icon>
+	</s:ViewNavigator>	
+	
+	<s:ViewNavigator label="Planning" width="100%" height="100%" firstView="views.PlanningView">
+		<s:icon>
+			<s:MultiDPIBitmapSource source160dpi="@Embed(source='/assets/icons/24x24/cal.png')"
+									source240dpi="@Embed(source='/assets/icons/32x32/cal.png')"
+									source320dpi="@Embed(source='/assets/icons/48x48/cal.png')" />
+		</s:icon>
+	</s:ViewNavigator>
+	
+	<s:ViewNavigator label="Parametres" width="100%" height="100%" firstView="views.ParametresView">
+		<s:icon>
+			<s:MultiDPIBitmapSource source160dpi="@Embed(source='/assets/icons/24x24/para.png')"
+									source240dpi="@Embed(source='/assets/icons/32x32/para.png')"
+									source320dpi="@Embed(source='/assets/icons/48x48/para.png')" />
+		</s:icon>
+	</s:ViewNavigator>
+	
+	<s:ViewNavigator label="Credits" width="100%" height="100%" firstView="views.CreditsView">
+		<s:icon>
+			<s:MultiDPIBitmapSource source160dpi="@Embed(source='/assets/icons/24x24/info.png')"
+									source240dpi="@Embed(source='/assets/icons/32x32/info.png')"
+									source320dpi="@Embed(source='/assets/icons/48x48/info.png')" />
+		</s:icon>
+	</s:ViewNavigator>
+	
+	<fx:Declarations>
+		<s:HTTPService id="TEST" url="http://emploisdutemps.kubrickservers.fr/RT/NEWS.xml" />
+	</fx:Declarations>
+</s:TabbedViewNavigatorApplication>

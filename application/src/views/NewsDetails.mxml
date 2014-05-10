@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="{data.objet}">
+	
+	<fx:Script>
+		<![CDATA[
+			protected function retour(event:MouseEvent):void
+			{
+				navigator.popView();
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+	</fx:Declarations>
+	
+	<s:layout>
+		<s:VerticalLayout paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15"  />
+	</s:layout>
+	
+	<s:navigationContent>
+		<s:Button label="Préc." click="retour(event)"/>
+	</s:navigationContent>
+	<s:HGroup width="100%" height="40" gap="20">
+		<s:Label text="par:"/>
+		<s:Label text="{data.de}"/>
+	</s:HGroup>
+	<s:HGroup width="100%" height="200" gap="20">
+		<s:TextArea width="100%" height="100%" editable="false" text="{data.text}"/>
+	</s:HGroup>
+</s:View>

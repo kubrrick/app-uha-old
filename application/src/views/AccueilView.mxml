@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		actionBarVisible="true" creationComplete="init(event)" overlayControls="false"
+		tabBarVisible="true" title="Accueil">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import spark.events.IndexChangeEvent;
+			
+			protected function init(event:FlexEvent):void
+			{
+				NEWSXML.send();
+			}
+			
+			protected function details(event:IndexChangeEvent):void
+			{
+				navigator.pushView(NewsDetails, event.target.selectedItem);
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:HTTPService id="NEWSXML" url="http://emploisdutemps.kubrickservers.fr/RT/NEWS.xml" />
+	</fx:Declarations>
+	<s:titleContent>
+		<s:Image width="100%" height="100%" source="assets/actionbar/actionBar.png"/>
+	</s:titleContent>
+	<s:actionContent>
+		<s:BusyIndicator  visible="{NEWSXML.lastResult == null}" x="-3" width="67" height="67" symbolColor="white"/>
+	</s:actionContent>
+	
+	<s:Group x="0" y="0" width="640" height="728">
+		<s:layout>
+			<s:VerticalLayout paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15" horizontalAlign="center" />
+		</s:layout>
+		<s:Label text="News :"/>
+		<s:List width="100%" height="289" change="details(event)" dataProvider="{NEWSXML.lastResult.news.nouveau}">
+			<s:itemRenderer>
+				<fx:Component>
+					<s:IconItemRenderer labelField="type" messageField="objet" />
+				</fx:Component>
+			</s:itemRenderer>
+		</s:List>
+		<s:Button label="non-definit" width="100%"/>
+		<s:Button label="non definit" width="100%"/>
+		<s:Button label="non-definit" width="100%"/>
+		<s:Button label="non-definit" width="100%"/>
+	</s:Group>	
+	
+</s:View>

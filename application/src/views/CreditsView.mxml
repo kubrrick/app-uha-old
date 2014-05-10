@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Credits">
+	<fx:Declarations>
+		<!-- Placer ici les éléments non visuels (services et objets de valeur, par exemple). -->
+	</fx:Declarations>
+	<s:Scroller width="100%" height="100%">
+		<s:Group>
+			<s:layout>
+			<s:VerticalLayout paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15"
+								  horizontalAlign="center" />
+			</s:layout>
+			<s:BorderContainer width="100%" height="100%" backgroundAlpha="0" cornerRadius="10">
+				<s:borderStroke>
+					<s:LinearGradientStroke rotation="90" weight="2">
+						<s:GradientEntry color="0x3D4545" ratio="0" />
+						<s:GradientEntry color="0x4F6162" ratio="0.66" alpha="0" />
+					</s:LinearGradientStroke>
+				</s:borderStroke>
+				<s:backgroundFill>
+					<s:LinearGradient id="bgGradient" rotation="90">
+						<s:GradientEntry color="0x000000" ratio="0" />
+						<s:GradientEntry color="0x222222" ratio="0.66" />
+					</s:LinearGradient>
+				</s:backgroundFill>
+				<s:layout>
+					<s:VerticalLayout paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15" />
+				</s:layout>
+				<s:Label text="Develloped by Kubrick" width="100%" color="white" />
+				<s:Label text="Usage restreint" width="100%" color="white" />
+				<s:Label text="Version 0.3" width="100%" color="white" />
+				<s:Line width="100%">
+					<s:stroke>
+						<s:SolidColorStroke color="0x131818" />
+					</s:stroke>
+				</s:Line>
+				<s:Line width="100%">
+					<s:stroke>
+						<s:SolidColorStroke color="0xDDDDDD" />
+					</s:stroke>
+				</s:Line>
+				<s:Group width="100%" height="100%">
+					<s:layout>
+						<s:TileLayout horizontalAlign="justify" requestedColumnCount="2"
+									  columnAlign="justifyUsingWidth" verticalGap="8" />
+					</s:layout>
+				</s:Group>
+			</s:BorderContainer>
+		</s:Group>
+	</s:Scroller>
+	
+</s:View>

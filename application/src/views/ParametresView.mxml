@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		title="Parametres"
+		>
+	
+	<!-- <fx:Script source="database.as" /> -->
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.ArrayList;
+			import mx.core.IFlexDisplayObject;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			import spark.events.ViewNavigatorEvent;
+			
+			
+			protected function update(event:MouseEvent):void
+			{
+				//test pour l'Easter Egg
+				if((nom.text.toLowerCase() == "fleck") && (prenom.text.toLowerCase() == "michael")) 
+				{
+					navigator.pushView(EasterEgg);
+					
+				}
+				
+				var lien1:String;
+				var lien2:String;
+				
+				//test de groupe
+				if( spin.selectedItem == "RT111" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT111/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT111/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "RT112" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT112/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT112/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "RT121" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT121/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT121/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "RT122" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT122/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT122/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "RT211" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT211/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT211/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "RT212" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT212/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT212/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "RT221" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT221/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT221/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "RT222" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/RT222/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/RT222/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "Licence ASUR" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/asur/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/asur/TOMORROW.xml";
+				}
+				if( spin.selectedItem == "Licence ISVD" )
+				{
+					lien1 = "http://emploisdutemps.kubrickservers.fr/RT/isvd/TODAY.xml";
+					lien2 = "http://emploisdutemps.kubrickservers.fr/RT/isvd/TOMORROW.xml";
+				}
+				
+				//créations des variables
+				var sqlCon:SQLConnection = new SQLConnection;
+				var update:SQLStatement = new SQLStatement;
+				var insert:SQLStatement = new SQLStatement;
+				
+				//chemin vers la BDD
+				var folder:File = File.applicationStorageDirectory;
+				var dbPath:File = folder.resolvePath("ade.sqlite");
+				
+				//ouverture de la BDD pour modification
+				sqlCon.open(dbPath);
+				
+				//update de la fonction
+				update.sqlConnection = sqlCon;
+				update.text = "UPDATE infos SET nom='" + nom.text.toLowerCase() + "', prenom='" + prenom.text.toLowerCase() + "', groupe='" + spin.selectedItem + "', lien1='" + lien1 + "', lien2='"+ lien2 +"' WHERE id=1";
+				update.execute();
+				
+				sqlCon.close();
+			}
+			
+			protected function getNom():String
+			{
+				
+				var sqlCon:SQLConnection = new SQLConnection;
+				var select:SQLStatement = new SQLStatement;
+				
+				var folder:File = File.applicationStorageDirectory;
+				var dbPath:File = folder.resolvePath("ade.sqlite");
+				
+				sqlCon.open(dbPath);
+				
+				select.sqlConnection = sqlCon;
+				select.text = "SELECT * FROM infos";
+				select.execute();
+				sqlCon.close();
+				var result:SQLResult = select.getResult();
+				
+				var toto:String = result.data[0].nom;
+				
+				
+				return toto;
+			}
+			
+			protected function getPrenom():String
+			{
+				
+				var sqlCon:SQLConnection = new SQLConnection;
+				var select:SQLStatement = new SQLStatement;
+				
+				var folder:File = File.applicationStorageDirectory;
+				var dbPath:File = folder.resolvePath("ade.sqlite");
+				
+				sqlCon.open(dbPath);
+				
+				select.sqlConnection = sqlCon;
+				select.text = "SELECT * FROM infos";
+				select.execute();
+				sqlCon.close();
+				var result:SQLResult = select.getResult();
+				
+				var toto:String = result.data[0].prenom;
+				
+				
+				return toto;
+			}
+			
+			protected function getGroupe():int
+			{
+				
+				var sqlCon:SQLConnection = new SQLConnection;
+				var select:SQLStatement = new SQLStatement;
+				
+				var folder:File = File.applicationStorageDirectory;
+				var dbPath:File = folder.resolvePath("ade.sqlite");
+				
+				sqlCon.open(dbPath);
+				
+				select.sqlConnection = sqlCon;
+				select.text = "SELECT * FROM infos";
+				select.execute();
+				sqlCon.close();
+				var result:SQLResult = select.getResult();
+				
+				var toto:String = result.data[0].groupe;
+				var tutu:int;
+				
+				if(toto == "RT111")
+				{
+					tutu = 0;
+				}
+				if(toto == "RT112")
+				{
+					tutu = 1;
+				}
+				if(toto == "RT121")
+				{
+					tutu = 2;
+				}
+				if(toto == "RT122")
+				{
+					tutu = 3;
+				}
+				if(toto == "RT211")
+				{
+					tutu = 4;
+				}
+				if(toto == "RT212")
+				{
+					tutu = 5;
+				}
+				if(toto == "RT221")
+				{
+					tutu = 6;
+				}
+				if(toto == "RT222")
+				{
+					tutu = 7;
+				}
+				if(toto == "Licence ASUR")
+				{
+					tutu = 8;
+				}
+				if(toto == "Licence ISVD")
+				{
+					tutu = 9;
+				}
+				
+				return tutu;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+	</fx:Declarations>
+	
+	<s:actionContent>
+		<s:Button label="save" click="update(event)"/>
+	</s:actionContent>
+	
+	<s:Group width="100%" height="100%" >
+		<s:layout>
+			<s:VerticalLayout paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15" horizontalAlign="left" />
+		</s:layout>
+		<s:Label text="Prénom :"/>
+		<s:TextInput id="prenom" x="196" y="31" width="388" prompt="Ton prénom" text="{getPrenom()}"/>
+		<s:Label text="Nom     :"/>
+		<s:TextInput id="nom" x="196" y="104" width="388" prompt="Ton nom" text="{getNom()}"/>
+		<s:Label text="Groupe  :"/>
+		
+		<s:SpinnerListContainer x="199" y="185" width="387" height="193" >
+			<s:SpinnerList id="spin" width="386" height="191"
+						   dataProvider="{new ArrayList(['RT111','RT112','RT121','RT122','RT211','RT212','RT221','RT222','Licence ASUR','Licence ISVD'])}"
+						   selectedIndex="{getGroupe()}" textAlign="center" wrapElements="false"/>
+		</s:SpinnerListContainer>
+	</s:Group>
+</s:View>

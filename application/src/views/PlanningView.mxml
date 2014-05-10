@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Planning {affichage()}"
+		creationComplete="init(event)"
+		>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import spark.events.IndexChangeEvent;
+			
+			protected function refresh():void
+			{
+				TODAY.send();
+				TOMORROW.send();
+			}
+			
+			protected function init(event:FlexEvent):void
+			{
+				TODAY.send();
+				TOMORROW.send();
+			}
+			
+			protected function TODAYDETAILS(event:IndexChangeEvent):void
+			{
+				navigator.pushView(PlanningDetails, event.target.selectedItem);
+			}
+			
+			protected function TOMORROWDETAILS(event:IndexChangeEvent):void
+			{
+				navigator.pushView(PlanningDetails, event.target.selectedItem);
+			}
+			
+			//recuperation du 1er lien
+			protected function today():String
+			{
+				var sqlCon:SQLConnection = new SQLConnection;
+				var select:SQLStatement = new SQLStatement;
+				
+				var folder:File = File.applicationStorageDirectory;
+				var dbPath:File = folder.resolvePath("ade.sqlite");
+				
+				sqlCon.open(dbPath);
+				
+				select.sqlConnection = sqlCon;
+				select.text = "SELECT * FROM infos";
+				select.execute();
+				sqlCon.close();
+				var result:SQLResult = select.getResult();
+				
+				var lien1:String = result.data[0].lien1;
+				
+				return lien1;
+			}
+			
+			//recuperation du 2em lien
+			protected function tomorrow():String
+			{
+				var sqlCon:SQLConnection = new SQLConnection;
+				var select:SQLStatement = new SQLStatement;
+				
+				var folder:File = File.applicationStorageDirectory;
+				var dbPath:File = folder.resolvePath("ade.sqlite");
+				
+				sqlCon.open(dbPath);
+				
+				select.sqlConnection = sqlCon;
+				select.text = "SELECT * FROM infos";
+				select.execute();
+				sqlCon.close();
+				var result:SQLResult = select.getResult();
+				
+				var lien2:String = result.data[0].lien2;
+				
+				return lien2;
+			}
+			
+			protected function affichage():String
+			{
+				var sqlCon:SQLConnection = new SQLConnection;
+				var select:SQLStatement = new SQLStatement;
+				
+				var folder:File = File.applicationStorageDirectory;
+				var dbPath:File = folder.resolvePath("ade.sqlite");
+				
+				sqlCon.open(dbPath);
+				
+				select.sqlConnection = sqlCon;
+				select.text = "SELECT * FROM infos";
+				select.execute();
+				sqlCon.close();
+				var result:SQLResult = select.getResult();
+				
+				var groupe:String = result.data[0].groupe;
+				
+				return groupe;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:HTTPService id="TODAY" url="{today()}" />
+		<s:HTTPService id="TOMORROW" url="{tomorrow()}" />
+	</fx:Declarations>
+	<s:actionContent>
+		<s:BusyIndicator visible="{TOMORROW.lastResult == null}" x="-3" width="67" height="67" symbolColor="white"/>
+	</s:actionContent>
+	
+	<s:Group x="0" y="0" width="100%" height="100%">
+		<s:layout>
+			<s:VerticalLayout paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15" horizontalAlign="left" />
+		</s:layout>
+		<s:Label width="100%" text="Aujourd'hui:"/>
+		<s:List width="100%" height="304" change="TODAYDETAILS(event)"
+				dataProvider="{TODAY.lastResult.rt.cours}">
+			<s:itemRenderer>
+				<fx:Component>
+					<s:IconItemRenderer labelField="nom" messageField="prof" />
+				</fx:Component>
+			</s:itemRenderer>	
+		</s:List>
+		<s:Label width="100%" text="Demain:"/>
+		<s:List  width="100%" height="303" change="TOMORROWDETAILS(event)" dataProvider="{TOMORROW.lastResult.rt.cours}" >
+			<s:itemRenderer>
+				<fx:Component>
+					<s:IconItemRenderer labelField="nom" iconField="pic" iconHeight="20" iconWidth="20" messageField="prof" decorator="dec" />
+				</fx:Component>
+			</s:itemRenderer>	
+		</s:List>
+	</s:Group>	
+	
+</s:View>
